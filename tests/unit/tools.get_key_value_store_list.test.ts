@@ -110,4 +110,12 @@ describe('get-key-value-store-list', () => {
         expect(tool.ajvValidate({ limit: 11 })).toBe(false);
         expect(tool.ajvValidate({ limit: 10 })).toBe(true);
     });
+
+    it('rejects limit below 1 or not an integer via ajv validation', () => {
+        const tool = getKeyValueStoreList as HelperTool;
+        expect(tool.ajvValidate({ limit: 0 })).toBe(false);
+        expect(tool.ajvValidate({ limit: -1 })).toBe(false);
+        expect(tool.ajvValidate({ limit: 1.5 })).toBe(false);
+        expect(tool.ajvValidate({ limit: 1 })).toBe(true);
+    });
 });

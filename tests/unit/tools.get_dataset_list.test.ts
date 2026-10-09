@@ -122,4 +122,12 @@ describe('get-dataset-list', () => {
         expect(tool.ajvValidate({ limit: 21 })).toBe(false);
         expect(tool.ajvValidate({ limit: 20 })).toBe(true);
     });
+
+    it('rejects limit below 1 or not an integer via ajv validation', () => {
+        const tool = getDatasetList as HelperTool;
+        expect(tool.ajvValidate({ limit: 0 })).toBe(false);
+        expect(tool.ajvValidate({ limit: -1 })).toBe(false);
+        expect(tool.ajvValidate({ limit: 1.5 })).toBe(false);
+        expect(tool.ajvValidate({ limit: 1 })).toBe(true);
+    });
 });
